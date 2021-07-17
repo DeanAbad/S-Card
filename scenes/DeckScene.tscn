@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/3DCardScene.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/DeckScene.gd" type="Script" id=2]
+[ext_resource path="res://assets/font/Anton-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="Environment" id=1]
+resource_local_to_scene = true
+background_mode = 4
+glow_enabled = true
+glow_intensity = 0.42
+glow_strength = 0.89
+glow_bloom = 0.12
+glow_blend_mode = 1
+glow_hdr_threshold = 0.0
+glow_hdr_luminance_cap = 256.0
+glow_hdr_scale = 0.0
+glow_bicubic_upscale = true
+
+[sub_resource type="ViewportTexture" id=2]
+viewport_path = NodePath("3DCardViewport")
+
+[sub_resource type="DynamicFont" id=3]
+size = 25
+outline_size = 5
+outline_color = Color( 0.364706, 0.0235294, 0.388235, 1 )
+font_data = ExtResource( 3 )
+
+[node name="DeckScene" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="3DCardViewport" type="Viewport" parent="."]
+size = Vector2( 1600, 2400 )
+own_world = true
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="3DCardScene" parent="3DCardViewport" instance=ExtResource( 1 )]
+
+[node name="2D3DCard" type="Sprite" parent="."]
+position = Vector2( 450, 300 )
+scale = Vector2( 0.5, 0.5 )
+texture = SubResource( 2 )
+
+[node name="Help" type="Label" parent="."]
+margin_right = 53.0
+margin_bottom = 50.0
+hint_tooltip = "Click and drag the mouse to rotate the card, while use the mouse wheel to zoom in and out."
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 3 )
+text = "[?]"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
